@@ -41,10 +41,11 @@ def get_files_info() -> ResponseGetFilesInfo:
     directory = "files"
 
     for filename in os.listdir(directory):
-        file_path = os.path.join(directory, filename)
-        df = pd.read_csv(file_path)
-        columns = df.columns.tolist()
-        file_data.append({"filename": filename, "columns": columns})
+        if filename != ".gitkeep":
+            file_path = os.path.join(directory, filename)
+            df = pd.read_csv(file_path)
+            columns = df.columns.tolist()
+            file_data.append({"filename": filename, "columns": columns})
 
     return ResponseGetFilesInfo(files=file_data)
 
